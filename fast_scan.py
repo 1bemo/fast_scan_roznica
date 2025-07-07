@@ -33,6 +33,7 @@ def ping_to_ip(ip, count = 2):
 def main():
     
     global ip_datas
+    global current_path
 
     # ---------------------------- получаем настройки из файлов cfg ---------------------------- #
 
