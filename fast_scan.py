@@ -1,7 +1,6 @@
 import os
-from colorama import Fore
-from colorama import Back
-from colorama import Style
+import subprocess
+import colorama
 
 # -------------------------------------------- глобальные -------------------------------------------- #
 
@@ -20,13 +19,12 @@ class IP_Data:
         self.ip = ip
         self.name = name
 
-
 # -------------------------------------------- функции -------------------------------------------- #
 
 # пинг до IP
-def ping_to_ip(ip, count = 2):
-    response = os.system(f'ping -n {count} {ip} > nul')
-    return response == 0
+def ping_to_ip(ip: str, count = 2):
+    result = subprocess.check_output(f'ping {ip} -n {count}', shell = True, text = True)
+    return True if result.lower().find('ttl=') != -1 else False
 
 # ------------------------------------------------------------------------------------------------- #
 
@@ -70,6 +68,8 @@ def main():
 
     # ---------------------------- пингуем ---------------------------- #
 
+    colorama.init()
+
     for el in ip_datas:
         if el.is_divider:
             print(f'\n----- {el.name} -----\n')
@@ -81,13 +81,13 @@ def main():
                 spaces += ' '
 
             if ping_to_ip(el.ip, 1):
-                style = Fore.GREEN
+                style = colorama.Fore.GREEN
                 status = '[ONLINE]'
             else:
-                style = Back.RED
+                style = colorama.Back.RED
                 status = '[OFFLINE]'
 
-            print(f'{style}{status} [{el.name}]{spaces}{el.ip}{Style.RESET_ALL}')
+            print(f'{style}{status} [{el.name}]{spaces}{el.ip}{colorama.Style.RESET_ALL}')
 
     print(f'\nPRESS ANY KEY TO EXIT\n')
 

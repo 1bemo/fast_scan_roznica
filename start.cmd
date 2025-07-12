@@ -1,6 +1,6 @@
 @echo off
 
-mode 47,50
+mode 50,50
 title FastScan
 
 python fast_scan.py
