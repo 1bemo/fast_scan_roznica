@@ -23,7 +23,10 @@ class IP_Data:
 
 # пинг до IP
 def ping_to_ip(ip: str, count = 2):
-    result = subprocess.check_output(f'ping {ip} -n {count}', shell = True, text = True)
+    try:
+        result = subprocess.check_output(f'ping {ip} -n {count}', shell = True, text = True)
+    except:
+        return False
     return True if result.lower().find('ttl=') != -1 else False
 
 # ------------------------------------------------------------------------------------------------- #
