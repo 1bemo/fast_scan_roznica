@@ -1,6 +1,7 @@
 import os
 import subprocess
 import colorama
+from datetime import datetime
 
 # -------------------------------------------- глобальные -------------------------------------------- #
 
@@ -72,6 +73,10 @@ def main():
     # ---------------------------- пингуем ---------------------------- #
 
     colorama.init()
+
+    # время старта
+    now = datetime.now()
+    print(f'Старт: {now.strftime('%Y-%m-%d %H:%M:%S')}')
 
     for el in ip_datas:
         if el.is_divider:
